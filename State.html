@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>TCiceroDev | Covid-19</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+        <meta name="description" content="Covid-19 Dashboard" />
+        <meta name="keywords" content="software, programing, apps, games, video games, Android, Windows, websites, Data, Covid-19"/>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow|Open+Sans:300" />
+        <link rel="stylesheet" href="assets/css/styles.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <style>
+            img {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            
+                        ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+              background-color: #333;
+            }
+
+            li {
+              float: left;
+            }
+
+            li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+            }
+
+            li a:hover {
+              background-color: #111;
+            }
+        </style>
+        
+        
+        
+    </head>
+        
+    <body>
+    
+<ul>
+  <li><a href="http://tcicerodev.com/">TCiceroDev</a></li>
+  <li><a href="http://tcicerodev.wordpress.com/" >Blog</a></li>
+  <li><a href="/Covid">Covid-19</a></li>
+  <li><a href="/Covid/US">Covid-19 USA</a></li>
+  <li><a href="/Covid/State">Covid-19 States</a></li>
+</ul>
+
+    
+    
+        <div id="st_btns">
+        </div>
+        <img id="Graph" src="file:///L:/GIS_DATA/CovidPy/CovidWebpage/States/MD/Covid-19_State.png" />
+    <script>
+        var states =[
+             'AL','AK','AS','AZ','AR','CA','CO','CT','DE','DC','FL','GA',
+             'GU','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA',
+             'MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND',
+             'MP','OH','OK','OR','PA','PR','RI','SC','SD','TN','TX','UT',
+             'VT','VI','VA','WA','WV','WI','WY'
+            ];
+            
+        function picture(st){
+            var pic = "file:///L:/GIS_DATA/CovidPy/CovidWebpage/States/"+st+"/Covid-19_State.png";
+            document.getElementById('Graph').src = pic.replace('90x90', '225x225');
+        }
+            
+        function genButtons(){
+            for (var i = 0; i<states.length; i++){
+                document.getElementById("st_btns").innerHTML += '<button onClick="picture(\'' + states[i] + '\')">' + states[i] + '</button>';
+                
+            }
+         }
+         
+         genButtons()
+        
+    </script>
+    </body>
+    
+    <footer>
+        <p>&copy; 2020 TCiceroDev All Rights Reserved</p>
+    </footer>
+</html>

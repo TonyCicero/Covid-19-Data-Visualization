@@ -1,4 +1,5 @@
 import ftplib
+import os
 
 DOMAIN = 'tcicerodev.com'
 USERNAME = 'Covid@tcicerodev.com'
@@ -26,12 +27,13 @@ def sendFile(filename, path):
     session.cwd('/')
     checkDir(path)
     file = open(filename,'rb')                  # file to send
-    session.storbinary('STOR Covid-19_State.png', file)     # send the file
+    session.storbinary('STOR '+os.path.basename(file.name), file)     # send the file
 
 def disconnect():    
     file.close()                                    # close file and FTP
     session.quit()
 
 connect()
+
 
 
