@@ -63,8 +63,8 @@ for day in data:
 
 fig=plt.figure(figsize=(16,12))
 ax,ax2,ax3,ax4=fig.subplots(4,1,sharex=True)
-ax.bar(dates,pos, width=1, color='Gold', label = 'Cases')
-ax.plot(dates, roll_avg(pos), color='DarkOrange', label = 'Cases 7-day Average')
+ax.bar(dates,pos, width=1, color='cornflowerblue', label = 'Cases')
+ax.plot(dates, roll_avg(pos), color='b', label = 'Cases 7-day Average')
 ax3.plot(dates, roll_avg(posRate), color='orange', label = 'Positivity Rate 7-day Average')
 ax3.bar(dates,posRate, width=1, color='Bisque', label = 'Positivity Rate')
 ax2.bar(dates,death, width=1, color='salmon', label = 'Deaths')

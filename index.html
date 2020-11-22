@@ -37,7 +37,30 @@
             li a:hover {
               background-color: #111;
             }
+            
+            div.a {
+              border: 1px solid black;
+              width: 200px;
+            }
 
+
+            .float-container {
+                border: 3px solid #fff;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                overflow: auto;
+            }
+
+            .float-child {
+                width: auto;
+                min-width: 200px;
+                float: left;
+                padding: 20px;
+                border: 2px solid black;
+                text-align:center;
+                background-color: gray;
+            }  
         </style>
         
         
@@ -46,6 +69,27 @@
         
     <body>
     
+    <script>
+        var url = "https://api.covidtracking.com/v1/us/current.json";
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            document.getElementById("cases").innerHTML = "Total Cases: "+myObj[0].positive + "<br> +" +myObj[0].positiveIncrease;
+            document.getElementById("deaths").innerHTML = "Total Deaths: "+myObj[0].death + "<br> +" +myObj[0].deathIncrease;
+            document.getElementById("hosp").innerHTML = "Currently Hospitalized: "+myObj[0].hospitalizedCurrently + "<br> +" +myObj[0].hospitalizedIncrease;
+            document.getElementById("icu").innerHTML = "Currently In ICU: "+myObj[0].inIcuCurrently;
+            document.getElementById("vent").innerHTML = "Currently on Ventilator: "+myObj[0].onVentilatorCurrently;
+            document.getElementById("tests").innerHTML = "Total Test Results: "+myObj[0].totalTestResults + "<br> +" +myObj[0].totalTestResultsIncrease
+            document.getElementById("time").innerHTML = "Last Updated: "+myObj[0].lastModified;
+          }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+
+    </script>
 
     
 <ul>
@@ -56,13 +100,56 @@
   <li><a href="/Covid/State">Covid-19 States</a></li>
 </ul>
 
-<h1 style="text-align:center;"> Covid-19 Dashboard</h1>
-<p style="text-align:center;"> This page is Still Under Construction. However, you can still view the <a href="State">State</a> and <a href="USA">National</a> Data. </p>
+<h1 style="text-align:center;">US Covid-19 Dashboard</h1>
+
+
+
+<div class="float-container">
+    <div class="float-child">
+        <p id="cases"></p>
+    </div>
+    
+    <div class="float-child">
+        <p id="deaths"></p>
+    </div>
+    
+    <div class="float-child">
+        <p id="hosp"></p>
+    </div>
+
+    <div class="float-child">
+        <p id="icu"></p>
+    </div>
+    
+    <div class="float-child">
+        <p id="vent"></p>
+    </div>
+    
+    <div class="float-child">
+        <p id="tests"></p>
+    </div>
+</div>
+
+<div class="float-container">
+    <div class="float-child"style="width:20%;">
+        <h2 id="state">State Data</h2>
+        <a href="State"><img src="States/MD/Covid-19_State.png" alt="StateData" style="width:90%;"></a>
+    </div>
+    
+    <div class="float-child" style="width:20%;">
+        <h2 id="National">US Data</h2>
+        <a href="State"><img src="US/Covid-19_US.png" alt="StateData" style="width:90%;"></a>
+    </div>
+</div>
+
+<br><br>
 
 <h2>About</h2>
 <p>Project Source Code: <a href="https://github.com/TonyCicero/Covid-19-Data-Visualization">GitHub Page</a></p>
 <p>DataSource: <a href="https://covidtracking.com/">The COVID Tracking Project</a></p>
+<p id="time"> </p>
 <p>All data is updated daily at aproximately 7PM EST.</p>
+
 
 
     </body>

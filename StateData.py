@@ -59,29 +59,35 @@ def get_data(state,d1,d2):
 
 def plot_data(state,L1,L2):
 
-    fig=plt.figure(figsize=(16,8))
-    ax,ax2=fig.subplots(2,1,sharex=True)
+    fig=plt.figure(figsize=(16,12))
+    ax,ax2,ax3=fig.subplots(3,1,sharex=True)
     #ax.scatter(dates, pos,s=1, color='b', label = L1)
     #ax.scatter(dates, neg,s=1, color='r', label = L2)
     #ax.bar(dates,tests, width=1, color='lime', label = 'Tests')
     ax.bar(dates,pos, width=1, color='cornflowerblue', label = L1)
     ax2.bar(dates,neg, width=1, color='salmon', label = L2)
+    ax3.bar(dates,posRate, width=1, color='Bisque', label = 'Positivity Rate')
     #ax.bar(dates,posRate, width=1, color='yellow', label = 'Positivity Rate')
     #ax.plot(dates, roll_avg(posRate), color='orange', label = 'Positivity Rate 7-day Average')
     #ax.plot(dates, roll_avg(tests), color='g', label = '{0} 7-day Average'.format('Tests'))
     #ax2.plot(dates, roll_avg(tests), color='g', label = '{0} 7-day Average'.format('Tests'))
     ax.plot(dates, roll_avg(pos), color='b', label = '{0} 7-day Average'.format(L1))
     ax2.plot(dates, roll_avg(neg), color='r', label = '{0} 7-day Average'.format(L2))
+    ax3.plot(dates, roll_avg(posRate), color='orange', label = 'Positivity Rate 7-day Average')
     ax.set_xlabel('Date')
     ax.set_ylabel('Cases')
     ax2.set_xlabel('Date')
     ax2.set_ylabel('Deaths')
+    ax3.set_xlabel('Date')
+    ax3.set_ylabel('Positivity Rate')
     #ax.set_ylim(200, 2500)  # outliers only
     #ax2.set_ylim(0, 100)  # most of the data
     ax.legend()
     ax2.legend()
+    ax3.legend()
     ax.yaxis.grid(color='gray', linestyle='dashed')
     ax2.yaxis.grid(color='gray', linestyle='dashed')
+    ax3.yaxis.grid(color='gray', linestyle='dashed')
     
     fig.text(0.85, 0.00, 'Last 7-Day Positivity Rate: {0}\n7-Day avg Cases: {1}\n7-Day avg Deaths:{2}'
              .format(round(avg(posRate),2),round(avg(pos),2),round(avg(neg),2)),
@@ -91,7 +97,7 @@ def plot_data(state,L1,L2):
     myFmt = mdates.DateFormatter('%m-%d-%Y')
     ax.xaxis.set_major_formatter(myFmt)
     ax2.xaxis.set_major_formatter(myFmt)
-    
+    ax3.xaxis.set_major_formatter(myFmt)
     fig.text(0.0, 0.0, 'Created By Tony Cicero\nData Source: The COVID Tracking Project',
          fontsize=18, color='gray',
          ha='left', va='bottom', alpha=0.5)
