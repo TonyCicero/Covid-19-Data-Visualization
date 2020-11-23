@@ -16,6 +16,16 @@ states =[
              'VT','VI','VA','WA','WV','WI','WY'
             ]
 
+dates =[]
+pos =[]
+neg =[]
+posRate=[]
+tests=[]
+results_dir =''
+timeFormat = "%Y%m%d"
+title="Daily Cases & Deaths"
+
+
 
 
 #average of last n days
@@ -108,30 +118,22 @@ def plot_data(state,L1,L2):
     #plt.show()
     plt.close()
 
-for st in states:
-    print("Current State: " + st)
-    state=st
-    dates =[]
-    pos =[]
-    neg =[]
-    posRate=[]
-    tests=[]
+def StateMain():
+    for st in states:
+        print("Current State: " + st)
+        state=st
+        script_dir = os.path.dirname(__file__)
+        results_dir = os.path.join(script_dir, "States/{0}/".format(state.upper()))
 
-    timeFormat = "%Y%m%d"
-    title="Daily Cases & Deaths"
+        if not os.path.isdir(results_dir):
+            os.makedirs(results_dir)
 
+        print("Getting Data")
+        get_data(state,"positiveIncrease","deathIncrease")
+        print("Creating Graph")
+        plot_data(state,"Daily Positive","Daily Deaths")
+        print("Uploading File")
+        sendFile(results_dir+"Covid-19_State.png","/States/{0}/Covid-19_State.png".format(state))
+        print("Done State: " + st)
 
-    script_dir = os.path.dirname(__file__)
-    results_dir = os.path.join(script_dir, "States/{0}/".format(state.upper()))
-
-    if not os.path.isdir(results_dir):
-        os.makedirs(results_dir)
-
-    print("Getting Data")
-    get_data(state,"positiveIncrease","deathIncrease")
-    print("Creating Graph")
-    plot_data(state,"Daily Positive","Daily Deaths")
-    print("Uploading File")
-    sendFile(results_dir+"Covid-19_State.png","/States/{0}/Covid-19_State.png".format(state))
-    print("Done State: " + st)
 
