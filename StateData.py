@@ -46,17 +46,22 @@ def roll_avg(a, n=7) :
 
 
 def get_data(state,d1,d2):
-    global calls
-    global cpm
-    global startTime
-    global data
-    time.sleep(1)
+    global pos 
+    global neg
+    global dates
+    global posRate
+    global tests
+    dates =[]
+    pos =[]
+    neg =[]
+    posRate=[]
+    tests=[]
+    
     url = "https://api.covidtracking.com/v1/states/{0}/daily.json".format(state)
     response = requests.get(url)
     data = response.json()
 
     for day in data:
-        
         dates.append(datetime.datetime.strptime(str(day["date"]),timeFormat))
         pos.append(day[d1])
         neg.append(day[d2])
@@ -68,7 +73,12 @@ def get_data(state,d1,d2):
             posRate.append(0)
 
 def plot_data(state,L1,L2):
-
+    global pos
+    global neg
+    global dates
+    global posRate
+    global tests
+    
     fig=plt.figure(figsize=(16,12))
     ax,ax2,ax3=fig.subplots(3,1,sharex=True)
     #ax.scatter(dates, pos,s=1, color='b', label = L1)
@@ -99,11 +109,11 @@ def plot_data(state,L1,L2):
     ax2.yaxis.grid(color='gray', linestyle='dashed')
     ax3.yaxis.grid(color='gray', linestyle='dashed')
     
-    fig.text(0.85, 0.00, 'Last 7-Day Positivity Rate: {0}\n7-Day avg Cases: {1}\n7-Day avg Deaths:{2}'
-             .format(round(avg(posRate),2),round(avg(pos),2),round(avg(neg),2)),
+    fig.text(0.85, 0.00, 'Last 7-Day Positivity Rate: {0}\n7-Day avg Cases: {1}\n7-Day avg Deaths:{2}\nTimestamp: {3}'
+             .format(round(avg(posRate),2),round(avg(pos),2),round(avg(neg),2),dates[0]),
          fontsize=10, color='black',
          ha='left', va='bottom', alpha=0.9)
-    ax.set_title('Covid-19 {0} {1}'.format(title,state.upper()))
+    ax.set_title('Covid-19 {0} {1} - {2}'.format(title,state.upper(),dates[0]))
     myFmt = mdates.DateFormatter('%m-%d-%Y')
     ax.xaxis.set_major_formatter(myFmt)
     ax2.xaxis.set_major_formatter(myFmt)
@@ -119,6 +129,7 @@ def plot_data(state,L1,L2):
     plt.close()
 
 def StateMain():
+    global results_dir
     for st in states:
         print("Current State: " + st)
         state=st
@@ -135,5 +146,4 @@ def StateMain():
         print("Uploading File")
         sendFile(results_dir+"Covid-19_State.png","/States/{0}/Covid-19_State.png".format(state))
         print("Done State: " + st)
-
 

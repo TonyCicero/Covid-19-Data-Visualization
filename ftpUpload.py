@@ -33,7 +33,7 @@ def disconnect():
     file.close()                                    # close file and FTP
     session.quit()
 
-connect()
+
 
 
 

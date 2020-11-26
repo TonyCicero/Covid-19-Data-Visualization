@@ -4,6 +4,7 @@ import time
 import datetime
 import USData as US
 import StateData as State
+import ftpUpload as ftp
 
 timeFormat = "%Y%m%d"
 url = "https://api.covidtracking.com/v1/us/daily.json"
@@ -22,9 +23,10 @@ def main():
     check()
     while(date != dataDate):
         print ("Data Not Ready")
-        time.sleep(5)
+        time.sleep(5*60)
         check()
     print ("ok")
+    ftp.connect()
     US.USMain()
     State.StateMain()
 

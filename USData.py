@@ -97,8 +97,8 @@ def USMain():
     ax3.yaxis.grid(color='gray', linestyle='dashed')
     ax4.yaxis.grid(color='gray', linestyle='dashed')
 
-    fig.text(0.85, 0.00, 'Last 7-Day Positivity Rate: {0}%\n7-Day avg Cases: {1}\n7-Day avg Deaths:{2}'
-                 .format(round(avg(posRate)*100,2),round(avg(pos),2),round(avg(death),2)),
+    fig.text(0.85, 0.00, 'Last 7-Day Positivity Rate: {0}%\n7-Day avg Cases: {1}\n7-Day avg Deaths:{2}\nTimestamp: {3}'
+                 .format(round(avg(posRate)*100,2),round(avg(pos),2),round(avg(death),2),dates[0]),
                  fontsize=10, color='black',
                  ha='left', va='bottom', alpha=0.9)
     fig.text(0.0, 0.0, 'Created By Tony Cicero\nData Source: The COVID Tracking Project',fontsize=18, color='gray',ha='left', va='bottom', alpha=0.5)
